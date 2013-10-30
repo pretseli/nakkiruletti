@@ -20,14 +20,26 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-        <input id="amount" type="number" value="4">
-        <button id="start">Start</button>
+        <input class="amount" type="number" value="4">
         <!-- Add your site or application content here -->
-        <div class="roulette">
-            <p id="nakki">---------&gt;</p>
-            <div class="participants">
+        <div class="roulette_base">
+            <div class="pointer"></div>
+            <div class="players"></div>
+            <div class="headers">
+                <h1>Nakkiruletti</h1>
+                <h2>Kenelle nakki napsahtaa?</h2>
+                <button class="set_players">Osallistujat</button>
+                <button class="play">Pyöritä</button>
             </div>
+
+            <div class="share">
+                <p>Kerro nakkiruletista työkavereillesi:</p>
+                <a class="twitter"></a>
+                <a class="facebook"></a>
+            </div>
+
         </div>
+        <div class="player_list"></div>
         <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.0.3.min.js"><\/script>')</script>
@@ -35,63 +47,66 @@
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
         <script>
+        var players = ["Asko", "Pekka", "Pertti", "Marko", "Jaska", "Hessu", "Paavo", "Kasperi"];
         var amount = 3;
         var current_rotation = 0;
-        function startRoulette() {
-            
-            $("#start").off("click");
-            $(".participants > div").css({fontWeight: "200"});
+        var pointer = $(".pointer");
+        function playRoulette() {
+
+            $(".play").off("click");
+            $(".players > div").css({fontWeight: "normal"});
             //choose the target angle, that will be choosen
-            var chosen = Math.round(Math.random()*(amount - 1) + 1);
+            var chosen = Math.floor(Math.random()*(amount) + 1);
             var rotation = (360/amount) * (chosen - 1) + 360*7 - current_rotation;
             current_rotation = (360/amount) * (chosen - 1);
-            $("#nakki").transition({easing: "easeOutCirc", rotate: "+="+rotation+"deg", duration: 6000, 
+            pointer.transition({easing: "easeOutCirc", rotate: "+="+rotation+"deg", duration: 6000,
                     complete: function() {
                         console.log(chosen);
-                        $("#participant" + chosen).css({fontWeight: "900"});
-                        $("#start").click(function() {
-                            startRoulette();
+                        $("#player" + chosen).css({fontWeight: "900"});
+                        $(".play").click(function() {
+                            playRoulette();
                             });
                         }
                     });
 
         }
-        function drawParticipants() {
+        function drawPlayers() {
             var sector = 360/amount;
             //absolute position of the rotation center
-            var nakki_length = $("#nakki").width();
-            var center_y = $("#nakki").position().top + $("#nakki").height()/2;
-            var center_x = $("#nakki").position().left + $("#nakki").width()/2;
-            $(".participants").empty();
+            var player_distance = pointer.width()/2 + 26;
+            var center_y = pointer.position().top + pointer.height()/2;
+            var center_x = pointer.position().left + pointer.width()/2;
+            $(".players").empty();
             for(var i = 0; i < amount; ++i) {
-                var y = Math.floor(Math.sin(i*sector*(Math.PI/180))*nakki_length) + center_y;
-                var x = Math.floor(Math.cos(i*sector*(Math.PI/180))*nakki_length) + center_x;
+                var radians = (i*sector - 90)*(Math.PI/180);
+                var y = Math.round(Math.sin(radians)*player_distance) + center_y;
+                var x = Math.round(Math.cos(radians)*player_distance) + center_x;
                 //console.log(x,y)
                 $("<div/>", {
-                    id: "participant"+(i+1),
-                    text: i+1
+                    id: "player"+(i+1),
+                    text: players[i]
                     }
-                 ).css({left: x - 6, top: y - 10})
-                  .appendTo(".participants");
-                
+                 ).css({left: x - 6, top: y - 8})
+                  .appendTo(".players");
+
             }
-            
+
         }
 
         $(document).ready(function() {
-            $("#start").click(function() {
-                startRoulette();  
+            $(".play").click(function() {
+                playRoulette();
             });
 
-            $("#amount").change(function() {
+            $(".amount").change(function() {
 
-                $("#nakki").transition({rotate: "0deg", duration: 0});
+                pointer.transition({rotate: "0deg", duration: 200});
                 current_rotation = 0;
                 amount = parseInt($(this).val(), 10);
-                drawParticipants();
+                drawPlayers();
             });
 
-            $("#amount").trigger("change");
+            $(".amount").trigger("change");
 
         });
         </script>
