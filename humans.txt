@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Janne Heinonen -- Project Leader, Graphics Designer -- <twitter>
+    Petteri Tolonen -- Programmer
+
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Normalize.css, jQuery, Transit.js, Modernizr
