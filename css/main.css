@@ -26,10 +26,11 @@ body {
     font-size: 1em;
     line-height: 1.4;
     background-color: #011e00;
-    background-position:  center;
+    background-position: center;
     background-image: url(../img/tausta.jpg);
     color: #ffffff;
-    min-height: 100%;
+    min-height: 633px;
+    height: 100%;
     width: 100%;
 }
 
@@ -104,14 +105,22 @@ textarea {
    ========================================================================== */
 
 .roulette_base {
-    position: relative;
+    position: absolute;
+    padding: 0;
     width: 465px;
     height: 633px;
-    margin: 0 auto;
+    top:0;
+    left:0;
+    bottom:0;
+    right: 0;
+    margin: auto;
     background-image: url(../img/rulettipohja.png);
     color: #63b4b8;
     text-transform: uppercase;
     font-size: 12px;
+    -webkit-border-radius:11px;
+    -moz-border-radius:11px;
+    border-radius:11px;
 }
 
 .pointer {
@@ -139,12 +148,15 @@ textarea {
 .players > div {
     position: absolute;
     display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: default;
 }
 
-.headers {
+.content {
     position: absolute;
     text-align: center;
-    top: 400px;
+    top: 380px;
     width: 100%;
 }
 
@@ -167,23 +179,51 @@ h2 {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: 70px;
+    color: #326173;
+    font-weight: 700;
+
 }
 
-.roulette_base .button {
+.share p {
+    position: absolute;
+    margin:  28px 0 0 42px;
+    padding:0;
+    width: 300px;
+}
+
+.share a {
+    position: absolute;
+    margin: 22px 6px;
+    display: block;
+    width: 31px;
+    height: 31px;
+}
+
+.share a.facebook {
+    left: 388px;
+    background: url(../img/fb_ikoni.png) no-repeat top left;
+}
+
+.share a.facebook:hover {
+    background: url(../img/fb_ikoni_rollover.png) no-repeat top left;
+}
+
+.share a.twitter {
+    left: 348px;
+    background: url(../img/twitter_ikoni.png) no-repeat top left;
+}
+
+.share a.twitter:hover {
+    background: url(../img/twitter_ikoni_rollover.png) no-repeat top left;
+}
+
+.button {
 	background-color:#265f7a;
-        border:0;
-	-webkit-border-top-left-radius:8px;
-	-moz-border-radius-topleft:8px;
-	border-top-left-radius:8px;
-	-webkit-border-top-right-radius:8px;
-	-moz-border-radius-topright:8px;
-	border-top-right-radius:8px;
-	-webkit-border-bottom-right-radius:8px;
-	-moz-border-radius-bottomright:8px;
-	border-bottom-right-radius:8px;
-	-webkit-border-bottom-left-radius:8px;
-	-moz-border-radius-bottomleft:8px;
-	border-bottom-left-radius:8px;
+        border-width: 0;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border-radius:8px;
 	text-indent:0;
 	display:inline-block;
 	color:#cde4f2;
@@ -191,32 +231,157 @@ h2 {
 	font-size:15px;
 	font-weight:bold;
 	font-style:normal;
-	height:48px;
+	height:42px;
         width:165px;
-	line-height:48px;
+	line-height:42px;
 	text-decoration:none;
         text-transform: uppercase;
 	text-align:center;
 	text-shadow:0px 1px 0px #193d4b;
         cursor: pointer;
+        margin-top: 28px;
 }
-.roulette_base .button:hover {
+.button:hover {
 	background-color:#2f718d;
 }
-.roulette_base .button:active {
+.button:active {
 	position:relative;
 	top:1px;
+}
+
+.roulette_base .button {
+    width: 165px;
+}
+
+.players_settings .button {
+    width: 130px;
 }
 /* This button was generated using CSSButtonGenerator.com */
 
 
+.players_settings {
+    display:block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-height: 633px;
+    margin:0;
+}
+.players_settings .dim {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background: #000000;
+}
 
+.window_set_players {
+    position: absolute;
+    z-index: 2;
+    margin: -290px auto;
+    top: 50%;
+    left: 0;
+    right: 0;
+    width: 330px;
+    height: 480px;
+    background-color: #0a3b53;
+    border-width: 0;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
+    text-align: center;
+    padding-top: 22px;
+}
 
+.player_list {
+    list-style: none;
+    width: 200px;
+    padding: 0;
+    margin: 15px auto;
+}
 
+.player_list li {
+    background: url(../img/listaikoni.png) no-repeat bottom left;
+    height: 22px;
+    padding-left: 38px;
+    padding-top: 12px;
+    border-bottom: 1px solid #6895a0;
+    text-align: left;
+}
 
+.player_list li input {
+    background: none;
+    border: none;
+    color: #6895a0;
+    font-size: 12px;
+    font-weight: 600;
+    height: 15px;
 
+}
 
+.player_list li input:focus {
+    color: #eaeafa;
+    border:0;
+    outline: none;
+}
 
+.ok_wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #0e4057;
+    border-top: 1px solid #0e4057;
+    border-width: 0;
+    -webkit-border-top-left-radius:0px;
+    -moz-border-radius-topleft:0px;
+    border-top-left-radius:0px;
+    -webkit-border-top-right-radius:0px;
+    -moz-border-radius-topright:0px;
+    border-top-right-radius:0px;
+    -webkit-border-bottom-right-radius:8px;
+    -moz-border-radius-bottomright:8px;
+    border-bottom-right-radius:8px;
+    -webkit-border-bottom-left-radius:8px;
+    -moz-border-radius-bottomleft:8px;
+    border-bottom-left-radius:8px;
+    text-align: center;
+}
+
+#btn_ok {
+    position: relative;
+    margin-top: 14px;
+}
+
+#btn_add_player {
+    width: 47px;
+    height: 47px;
+    margin-right: 20px;
+
+    background: url(../img/plus.png) top left no-repeat;
+}
+
+#btn_add_player:hover {
+    background: url(../img/plus_rollover.png) top left no-repeat;
+}
+
+#btn_remove_player {
+    width: 47px;
+    height: 47px;
+    margin-left: 20px;
+    background: url(../img/miinus.png) top left no-repeat;
+}
+
+#btn_remove_player:hover {
+    background: url(../img/miinus_rollover.png) top left no-repeat;
+}
+
+#player_icon {
+    background: url(../img/hahmoikoni.png) top left no-repeat;
+    display: inline-block;
+    width: 75px;
+    height: 65px;
+}
 
 /* ==========================================================================
    Helper classes

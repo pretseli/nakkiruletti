@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>Nakkiruletti</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -20,12 +20,11 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-        <input class="amount" type="number" value="4">
         <!-- Add your site or application content here -->
         <div class="roulette_base">
             <div class="pointer"></div>
             <div class="players"></div>
-            <div class="headers">
+            <div class="content">
                 <h1>Nakkiruletti</h1>
                 <h2>Kenelle nakki napsahtaa?</h2>
                 <div id="btn_set_players" class="button" style="margin-right: 30px;">Osallistujat</div>
@@ -34,84 +33,164 @@
 
             <div class="share">
                 <p>Kerro nakkiruletista työkavereillesi:</p>
-                <a class="twitter"></a>
-                <a class="facebook"></a>
+                <a class="twitter" href="http://twitter.com/share?text=Nakkiruletti&url=http://www.google.com"></a>
+                <a class="facebook" href="http://www.facebook.com/sharer.php?u=http://www.google.com"></a>
             </div>
 
         </div>
-        <div class="player_list"></div>
+        <div class="players_settings">
+            <div class="dim"></div>
+            <div class="window_set_players">
+                <!--input type="number" class="amount"-->
+                <div id="btn_add_player" class="button"></div>
+                <div id="player_icon"></div>
+                <div id="btn_remove_player" class="button"></div>
+                <ul class="player_list">
+                    <li><input type="text" maxlength="16" value="Pelaaja 1"></li>
+                    <li><input type="text" maxlength="16" value="Pelaaja 2"></li>
+                    <li><input type="text" maxlength="16" value="Pelaaja 3"></li>
+                    <li><input type="text" maxlength="16" value="Pelaaja 4"></li>
+                </ul>
+                <div class="ok_wrapper">
+                    <div id="btn_ok" class="button">OK</div>
+                </div>
+            </div>
+        </div>
+
         <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.0.3.min.js"><\/script>')</script>
         <script src="js/vendor/jquery.transit.min.js"></script>
+        <script src="js/vendor/jquery.storageapi.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-        <script>
-        var players = ["Asko", "Pekka", "Pertti", "Marko", "Jaska", "Hessu", "Paavo", "Kasperi"];
-        var amount = 3;
-        var current_rotation = 0;
-        var pointer = $(".pointer");
-        function playRoulette() {
 
-            $("#btn_play").off("click");
-            $(".players > div").css({fontWeight: "normal"});
-            //choose the target angle, that will be choosen
-            var chosen = Math.floor(Math.random()*(amount) + 1);
+        <script>
+
+        var players = []; //array for storing all the current players
+        var current_rotation = 0; //the current rotation of the roulette in angles
+        var spinning = false; //is the roulette spinning?
+        var pointer = $(".pointer"); //the element for roulette pointer
+
+        function playRoulette() {
+            var amount = players.length;
+            spinning = true;
+            $(".players > div").css({color: "inherit"});
+            var chosen = Math.floor(Math.random()*amount) + 1;
             var rotation = (360/amount) * (chosen - 1) + 360*7 - current_rotation;
             current_rotation = (360/amount) * (chosen - 1);
             pointer.transition({easing: "easeOutCirc", rotate: "+="+rotation+"deg", duration: 6000,
                     complete: function() {
-                        console.log(chosen);
-                        $("#player" + chosen).css({fontWeight: "900"});
-                        $("#btn_play").click(function() {
-                            playRoulette();
-                            });
-                        }
-                    });
+                        spinning = false;
+                        $("#player" + chosen).css({color: "white"});
+                    }});
 
         }
+        
         function drawPlayers() {
+            var amount = players.length;
             var sector = 360/amount;
-            //absolute position of the rotation center
-            var player_distance = pointer.width()/2 + 26;
+            //distance of the player names from the roulette center
+            var player_distance = Math.ceil(pointer.width()/2) + 22;
+
+            //the position of the center of the pointer
             var center_y = pointer.position().top + pointer.height()/2;
             var center_x = pointer.position().left + pointer.width()/2;
+
+            //redrawing player names, remove old ones
             $(".players").empty();
             for(var i = 0; i < amount; ++i) {
+
+                //the angle for this player in radians
                 var radians = (i*sector - 90)*(Math.PI/180);
+                //the name can be wider at the bottom and top.
+                var style = "max-width: " + Math.floor(64 + 130*Math.abs(Math.sin(radians))) + "px;";
+                //the div for player's name
                 var el = $("<div/>", {
                     id: "player"+(i+1),
-                    text: players[i]
+                    text: players[i],
+                    style: style,
+                    title: players[i]
                     }
-                ).appendTo(".players");;
+                ).appendTo(".players");
+
+                //the names on the left side and over/under the roulette have to be
+                //whifted left, so that they don't lie over the roulette
                 var offset_factor = 0;
                 if(Math.cos(radians) - 0.05 <= 0) {
-                    offset_factor = Math.round(Math.cos(radians)*el.width()/2 - el.width()/2);
+                    offset_factor = Math.round(Math.cos(radians)*(el.width()/2) - el.width()/2);
                 }
+
+
                 var y = Math.round(Math.sin(radians)*player_distance) + center_y;
                 var x = Math.round(Math.cos(radians)*player_distance) + center_x;
-                //console.log(x,y)
-                console.log(players[i], offset_factor)
-                el.css({left: x + offset_factor, top: y - 5});
+                el.css({left: (x + offset_factor) < 0 ? 10 : x + offset_factor, top: y - 4});
 
             }
 
         }
 
         $(document).ready(function() {
+
+            $("#btn_set_players").click(function() {
+                //only show settings if roulette is not spinning
+                if(!spinning) {
+                    $(".players_settings").fadeIn();
+                }
+            });
+
             $("#btn_play").click(function() {
-                playRoulette();
+                //only show settings if roulette is not spinning
+                if(!spinning) {
+                    playRoulette();
+                }
             });
 
-            $(".amount").change(function() {
+            $("#btn_ok").click(function() {
 
-                pointer.transition({rotate: "0deg", duration: 200});
+                //when settings changed -> set the roulette to defaults
+                pointer.transition({rotate: "0deg", duration: 0});
                 current_rotation = 0;
-                amount = parseInt($(this).val(), 10);
+                players.length = 0;
+                //get the players from the list
+                $(".player_list li input").each(function(){
+                    players.push($(this).val());
+                });
+                //.. and draw the players
                 drawPlayers();
+
+                $(".players_settings").fadeOut();
             });
 
-            $(".amount").trigger("change");
+            $("#btn_add_player").click(function() {
+                if($(".player_list li").length < 8) {
+                    var row = $("<li><input type=\"text\" maxlength=\"16\" value=\"\"></li>")
+                    row.appendTo(".player_list");
+                    row.children("input").focus()
+                        .blur(function() {
+                            if(!$(this).val()) {
+                                $(this).val("Pelaaja " + ($(".player_list li").index($(this).parent()) + 1));
+                            }
+                        });
+                }
+            });
+
+            $("#btn_remove_player").mousedown(function(e) {
+                var focused = $(".player_list li input:focus");
+                //dont't remove the last player
+                if($(".player_list li").length > 1) {
+                    //if some player is focused, remove that
+                    if(focused.length > 0) {
+                        focused.parent().remove();
+
+                    }
+                    //otherwise remove the last player
+                    else {
+                        $(".player_list li:last-child").remove();
+                    }
+                }
+
+            });
 
         });
         </script>
