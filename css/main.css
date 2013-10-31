@@ -200,6 +200,10 @@ h2 {
     height: 31px;
 }
 
+.share a:active {
+    top: 1px;
+}
+
 .share a.facebook {
     left: 388px;
     background: url(../img/fb_ikoni.png) no-repeat top left;

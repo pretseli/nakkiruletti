@@ -86,7 +86,7 @@
                     }});
 
         }
-        
+
         function drawPlayers() {
             var amount = players.length;
             var sector = 360/amount;
@@ -191,6 +191,18 @@
                 }
 
             });
+
+            $(".player_list li input").blur(function() {
+                if(!$(this).val()) {
+                    $(this).val("Pelaaja " + ($(".player_list li").index($(this).parent()) + 1));
+                }
+            });
+
+            $(document).on("dragstart", function(e) {
+                if (e.target.nodeName.toUpperCase() == "A") {
+                    return false;
+                }
+           });
 
         });
         </script>
