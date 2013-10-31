@@ -28,8 +28,8 @@
             <div class="headers">
                 <h1>Nakkiruletti</h1>
                 <h2>Kenelle nakki napsahtaa?</h2>
-                <button class="set_players">Osallistujat</button>
-                <button class="play">Pyöritä</button>
+                <div id="btn_set_players" class="button" style="margin-right: 30px;">Osallistujat</div>
+                <div id="btn_play" class="button">Pyöritä</div>
             </div>
 
             <div class="share">
@@ -53,7 +53,7 @@
         var pointer = $(".pointer");
         function playRoulette() {
 
-            $(".play").off("click");
+            $("#btn_play").off("click");
             $(".players > div").css({fontWeight: "normal"});
             //choose the target angle, that will be choosen
             var chosen = Math.floor(Math.random()*(amount) + 1);
@@ -63,7 +63,7 @@
                     complete: function() {
                         console.log(chosen);
                         $("#player" + chosen).css({fontWeight: "900"});
-                        $(".play").click(function() {
+                        $("#btn_play").click(function() {
                             playRoulette();
                             });
                         }
@@ -79,22 +79,27 @@
             $(".players").empty();
             for(var i = 0; i < amount; ++i) {
                 var radians = (i*sector - 90)*(Math.PI/180);
-                var y = Math.round(Math.sin(radians)*player_distance) + center_y;
-                var x = Math.round(Math.cos(radians)*player_distance) + center_x;
-                //console.log(x,y)
-                $("<div/>", {
+                var el = $("<div/>", {
                     id: "player"+(i+1),
                     text: players[i]
                     }
-                 ).css({left: x - 6, top: y - 8})
-                  .appendTo(".players");
+                ).appendTo(".players");;
+                var offset_factor = 0;
+                if(Math.cos(radians) - 0.05 <= 0) {
+                    offset_factor = Math.round(Math.cos(radians)*el.width()/2 - el.width()/2);
+                }
+                var y = Math.round(Math.sin(radians)*player_distance) + center_y;
+                var x = Math.round(Math.cos(radians)*player_distance) + center_x;
+                //console.log(x,y)
+                console.log(players[i], offset_factor)
+                el.css({left: x + offset_factor, top: y - 5});
 
             }
 
         }
 
         $(document).ready(function() {
-            $(".play").click(function() {
+            $("#btn_play").click(function() {
                 playRoulette();
             });
 
