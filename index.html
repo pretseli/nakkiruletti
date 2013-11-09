@@ -3,22 +3,21 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
+    <head profile="http://www.w3.org/2005/10/profile">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Nakkiruletti</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=480, initial-scale=0.67, maximum-scale=1.0">
+        <title>Nakkiruletti - Kelle nakki napsahtaa?</title>
+        <meta name="description" content="Kelle nakki napsahtaa?">
 
-        <link rel="image_src" href="http://www.cs.tut.fi/~tolonen6/nakkiruletti/img/logo_screen.jpg">
-        <meta property="og:title" content="Nakkiruletti"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:image" content="http://www.cs.tut.fi/~tolonen6/nakkiruletti/img/logo_screen.jpg"/>
-        <meta property="og:url" content="http://www.cs.tut.fi/~tolonen6/nakkiruletti/"/>
-        <meta property="og:site_name" content="Nakkipaketti"/>
-        <meta property="fb:admins" content="100000485796979"/>
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="icon" type="image/png" href="nakkiruletti_favicon.png">
+        <link rel="image_src" href="http://www.nakkipaketti.fi/img/logo_screen.jpg">
+        <meta property="og:title" content="Nakkiruletti">
+        <meta property="og:description" content="Kelle nakki napsahtaa?">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="http://www.nakkipaketti.fi/nakkiruletti/img/logo_screen.jpg">
+        <meta property="og:url" content="http://www.nakkipaketti.fi/nakkiruletti/">
+        <meta property="og:site_name" content="Nakkipaketti">
+        <meta property="fb:admins" content="100000485796979">
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
@@ -42,8 +41,8 @@
 
                 <div class="share">
                     <p>Kerro nakkiruletista työkavereillesi:</p>
-                    <a class="twitter" href="http://twitter.com/share?text=Nakkiruletti&url=http%3A%2F%2Fwww.nakkipaketti.fi%2Fnakkiruletti"></a>
-                    <a class="facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.nakkipaketti.fi%2Fnakkiruletti"></a>
+                    <a class="twitter" href="http://twitter.com/share?text=Nakkiruletti%20-%20Kelle%20nakki%20napsahtaa%3F&url=http%3A%2F%2Fwww.nakkipaketti.fi%2Fnakkiruletti%2F"></a>
+                    <a class="facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.nakkipaketti.fi%2Fnakkiruletti%2F"></a>
                 </div>
             </div>
         </div>
@@ -55,10 +54,6 @@
                 <div id="player_icon"></div>
                 <div id="btn_remove_player" class="button"></div>
                 <ul class="player_list">
-                    <li><input type="text" maxlength="16" value="Pelaaja 1"></li>
-                    <li><input type="text" maxlength="16" value="Pelaaja 2"></li>
-                    <li><input type="text" maxlength="16" value="Pelaaja 3"></li>
-                    <li><input type="text" maxlength="16" value="Pelaaja 4"></li>
                 </ul>
                 <div class="ok_wrapper">
                     <div id="btn_ok" class="button">OK</div>
@@ -66,11 +61,21 @@
             </div>
         </div>
 
-        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.0.3.min.js"><\/script>')</script>
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <!--[if lt IE 9]>
+            <script src="js/vendor/jquery-migrate-1.2.1.min.js"></script>
+        <![endif]-->
+
+        <script>
+            var x_scale = Math.min($(window).width()/480, 1.0);
+            $('head').append('<meta name="viewport" content="width=480, initial-scale=' + x_scale + ', maximum-scale=1.0">');
+        </script>
+
         <script src="js/vendor/jquery.transit.min.js"></script>
-        <script src="js/vendor/jquery.storageapi.min.js"></script>
+        <!--script src="js/vendor/jquery.storageapi.min.js"></script-->
         <script src="js/nakkiruletti.js"></script>
 
     </body>
