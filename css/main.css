@@ -1,16 +1,5 @@
-/*
- * HTML5 Boilerplate
- *
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
-
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
 
 html {
     height: 100%;
@@ -21,7 +10,7 @@ button,
 input,
 select,
 textarea {
-    font-family: "PT Sans Narrow", "Arial", sans-serif;
+    font-family: "PT Sans", "Arial", sans-serif;
 }
 
 body {
@@ -173,7 +162,7 @@ h2 {
 
 .share p {
     position: absolute;
-    margin:  28px 0 0 58px;
+    margin:  28px 0 0 38px;
     padding: 0;
     width: 370px;
     text-shadow: 0 1px 0 #001c2b;
@@ -192,7 +181,7 @@ h2 {
 }
 
 .share a.facebook {
-    left: 378px;
+    left: 400px;
     background: url(../img/fb_ikoni.png) no-repeat top left;
 }
 
@@ -201,7 +190,7 @@ h2 {
 }
 
 .share a.twitter {
-    left: 333px;
+    left: 364px;
     background: url(../img/twitter_ikoni.png) no-repeat top left;
 }
 
@@ -210,6 +199,7 @@ h2 {
 }
 
 .button {
+        font-family: "PT Sans Narrow", "Arial", sans-serif;
 	background-color:#265f7a;
         border-width: 0;
 	-webkit-border-radius:8px;
@@ -299,6 +289,7 @@ h2 {
     padding-top: 8px;
     border-bottom: 1px solid #6895a0;
     text-align: left;
+    cursor: pointer;
 }
 
 .player_list li input {
