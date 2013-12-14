@@ -76,7 +76,22 @@
             el.css({left: (x + x_offset) < 10 ? 10 : x + x_offset, top: y - 5});
 
         }
+    }
+    function addPlayerRow(player_name) {
+        if ($(".player_list li").length < 8) {
 
+            var row = $("<li><input type=\"text\" maxlength=\"16\" value=\"" + (player_name || "") + "\"></li>");
+            row.click(function() {
+                $(this).children("input").focus();
+            });
+            row.appendTo(".player_list");
+            row.children("input").focus()
+                    .blur(function() {
+                        if (!$(this).val()) {
+                            $(this).val("Pelaaja " + ($(".player_list li").index($(this).parent()) + 1));
+                        }
+                    });
+        }
     }
 
     $(document).ready(function() {
@@ -112,16 +127,7 @@
         });
 
         $("#btn_add_player").click(function() {
-            if ($(".player_list li").length < 8) {
-                var row = $("<li><input type=\"text\" maxlength=\"16\" value=\"\"></li>");
-                row.appendTo(".player_list");
-                row.children("input").focus()
-                        .blur(function() {
-                            if (!$(this).val()) {
-                                $(this).val("Pelaaja " + ($(".player_list li").index($(this).parent()) + 1));
-                            }
-                        });
-            }
+            addPlayerRow();
         });
 
         $("#btn_remove_player").mousedown(function(e) {
@@ -153,13 +159,14 @@
             }
         });
 
-        //get the players from the list
+        //get the players from the list (if there are any)
         $(".player_list li input").each(function() {
             players.push($(this).val());
         });
 
         $.each(players, function(k, p) {
-            $(".player_list").append("<li><input type=\"text\" maxlength=\"16\" value=\"" + p + "\"></li>")
+            addPlayerRow(p);
+            //$(".player_list").append("<li><input type=\"text\" maxlength=\"16\" value=\"" + p + "\"></li>")
         });
         //.. and draw the players
         drawPlayers();

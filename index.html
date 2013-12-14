@@ -2,22 +2,20 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fi"> <!--<![endif]-->
     <head profile="http://www.w3.org/2005/10/profile">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Nakkiruletti - Kelle nakki napsahtaa?</title>
-        <meta name="description" content="Kelle nakki napsahtaa?">
-
+        <meta name="viewport" content="width=480, initial-scale=0.67, maximum-scale=1.0">
         <link rel="icon" type="image/png" href="nakkiruletti_favicon.png">
-        <link rel="image_src" href="http://www.nakkipaketti.fi/img/logo_screen.jpg">
+        <link rel="image_src" href="http://www.nakkipaketti.fi/img/fb_share_thumb.jpg">
         <meta property="og:title" content="Nakkiruletti">
         <meta property="og:description" content="Kelle nakki napsahtaa?">
         <meta property="og:type" content="website">
-        <meta property="og:image" content="http://www.nakkipaketti.fi/nakkiruletti/img/logo_screen.jpg">
+        <meta property="og:image" content="http://www.nakkipaketti.fi/nakkiruletti/img/fb_share_thumb.jpg">
         <meta property="og:url" content="http://www.nakkipaketti.fi/nakkiruletti/">
         <meta property="og:site_name" content="Nakkipaketti">
-        <meta property="fb:admins" content="100000485796979">
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
@@ -61,22 +59,21 @@
             </div>
         </div>
 
-
-
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-        <!--[if lt IE 9]>
-            <script src="js/vendor/jquery-migrate-1.2.1.min.js"></script>
-        <![endif]-->
-
-        <script>
-            var x_scale = Math.min($(window).width()/480, 1.0);
-            $('head').append('<meta name="viewport" content="width=480, initial-scale=' + x_scale + ', maximum-scale=1.0">');
-        </script>
 
         <script src="js/vendor/jquery.transit.min.js"></script>
-        <!--script src="js/vendor/jquery.storageapi.min.js"></script-->
         <script src="js/nakkiruletti.js"></script>
 
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-44622927-1', 'nakkipaketti.fi');
+          ga('send', 'pageview');
+
+        </script>
     </body>
 </html>
