@@ -1,4 +1,4 @@
 nakkiruletti
 ============
 
-[[http://www.nakkipaketti.fi/nakkiruletti]]
+http://www.nakkipaketti.fi/nakkiruletti
